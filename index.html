@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff8f1" />
+  <title>Hola, qué bueno verte</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☀%3C/text%3E%3C/svg%3E" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+    :root {
+      color-scheme: light;
+      --ink: #342b3b;
+      --muted: #817783;
+      --paper: #fffaf5;
+      --coral: #e87968;
+      --coral-dark: #cb5b4f;
+      --lilac: #eee8f5;
+      --line: #eee5e0;
+      font-family: 'DM Sans', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--ink);
+      background: radial-gradient(ellipse at 79% 19%, #ffe9dc 0, transparent 30%),
+                  radial-gradient(ellipse at 12% 89%, #eee8f6 0, transparent 27%), var(--paper);
+      display: grid; place-items: center; padding: 28px;
+    }
+    button, input { font: inherit; }
+    .app { width: min(1050px, 100%); min-height: 620px; display: grid; grid-template-columns: 1.04fr .96fr; border: 1px solid rgba(95,65,68,.08); border-radius: 30px; background: rgba(255,255,255,.78); box-shadow: 0 24px 80px rgba(104,72,76,.10); overflow: hidden; }
+    .content { padding: clamp(34px, 6vw, 72px); display: flex; flex-direction: column; justify-content: center; }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #806b77; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: #fae3dc; font-size: 17px; }
+    h1 { margin: 38px 0 12px; font: 600 clamp(38px, 5vw, 58px)/1.08 'Playfair Display', Georgia, serif; letter-spacing: -.045em; }
+    h1 span { color: var(--coral-dark); }
+    .intro { max-width: 380px; margin: 0 0 30px; color: var(--muted); line-height: 1.7; font-size: 15px; }
+    .label { display: block; margin: 0 0 9px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6f6572; }
+    .name-wrap { position: relative; }
+    .name-wrap .emoji { position: absolute; top: 50%; left: 16px; transform: translateY(-50%); font-size: 18px; }
+    input { width: 100%; height: 54px; padding: 0 16px 0 47px; border: 1px solid var(--line); outline: none; border-radius: 14px; background: #fffdfb; color: var(--ink); transition: border .2s, box-shadow .2s; }
+    input::placeholder { color: #b7adb2; }
+    input:focus { border-color: #e89a8d; box-shadow: 0 0 0 4px rgba(232,121,104,.12); }
+    .mood-label { margin-top: 23px; }
+    .moods { display: flex; flex-wrap: wrap; gap: 9px; }
+    .mood { border: 1px solid var(--line); border-radius: 99px; padding: 9px 13px; color: #756a76; background: #fffdfb; cursor: pointer; transition: .2s; font-size: 13px; }
+    .mood:hover { transform: translateY(-2px); border-color: #e9b5aa; }
+    .mood[aria-pressed="true"] { background: #fbebe6; border-color: #eaa99e; color: #a64e47; box-shadow: 0 3px 9px rgba(188,91,78,.08); }
+    .submit { width: 100%; margin-top: 25px; padding: 16px 20px; border: 0; border-radius: 14px; color: white; background: var(--coral); font-weight: 700; cursor: pointer; box-shadow: 0 8px 18px rgba(205,91,79,.2); transition: transform .2s, background .2s, box-shadow .2s; }
+    .submit:hover { transform: translateY(-2px); background: var(--coral-dark); box-shadow: 0 12px 22px rgba(205,91,79,.25); }
+    .submit:active { transform: translateY(0); }
+    .submit:focus-visible, .mood:focus-visible, .again:focus-visible { outline: 3px solid #aa7fc0; outline-offset: 3px; }
+    .privacy { text-align: center; margin: 14px 0 0; font-size: 11px; color: #a59ba3; }
+    .visual { position: relative; min-height: 560px; display: grid; place-items: center; overflow: hidden; background: linear-gradient(150deg, #f8ecef, #f4eff9 54%, #f9e9dc); }
+    .visual::before, .visual::after { content: ''; position: absolute; width: 310px; height: 310px; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; }
+    .visual::after { width: 390px; height: 390px; }
+    .sun-card { position: relative; z-index: 1; width: min(320px, 75%); aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.50); box-shadow: 0 20px 60px rgba(136,102,128,.10); backdrop-filter: blur(7px); }
+    .sun { width: 76%; overflow: visible; filter: drop-shadow(0 10px 12px rgba(216,139,92,.18)); animation: bob 4s ease-in-out infinite; transform-origin: center; }
+    @keyframes bob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(2deg); } }
+    .spark { position: absolute; color: #d6a960; animation: twinkle 2.5s ease-in-out infinite; }
+    .spark.one { top: 19%; left: 17%; font-size: 21px; }
+    .spark.two { top: 26%; right: 15%; font-size: 15px; animation-delay: .6s; }
+    .spark.three { bottom: 23%; left: 17%; font-size: 16px; animation-delay: 1.2s; }
+    .spark.four { bottom: 18%; right: 21%; font-size: 23px; animation-delay: .9s; }
+    @keyframes twinkle { 0%,100% { opacity: .48; transform: scale(.8) rotate(0); } 50% { opacity: 1; transform: scale(1.18) rotate(18deg); } }
+    .caption { position: absolute; bottom: 48px; z-index: 2; text-align: center; padding: 0 20px; }
+    .caption p { margin: 0; font: 500 21px 'Playfair Display', Georgia, serif; color: #64536a; transition: .25s; }
+    .caption small { display: block; margin-top: 8px; color: #938594; font-size: 12px; letter-spacing: .03em; }
+    .result { min-height: 61px; margin-top: 12px; display: none; text-align: center; animation: appear .5s both; }
+    .result.show { display: block; }
+    .result p { margin: 0; font: 600 18px/1.45 'Playfair Display', Georgia, serif; color: #7a4c61; }
+    .again { margin-top: 6px; border: 0; background: none; color: #b75f57; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 12px; }
+    @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .burst { position: fixed; z-index: 5; pointer-events: none; font-size: 20px; animation: burst 950ms ease-out forwards; }
+    @keyframes burst { 0% { opacity: 1; transform: translate(0,0) scale(.5) rotate(0); } 100% { opacity: 0; transform: translate(var(--x),var(--y)) scale(1.25) rotate(130deg); } }
+    @media (max-width: 720px) {
+      body { display: block; padding: 14px; }
+      .app { min-height: 0; grid-template-columns: 1fr; border-radius: 24px; }
+      .content { padding: 32px 26px 26px; order: 2; }
+      .visual { min-height: 300px; order: 1; }
+      .sun-card { width: 190px; }
+      .visual::before { width: 230px; height: 230px; }
+      .visual::after { width: 285px; height: 285px; }
+      .caption { bottom: 17px; }
+      .caption p { font-size: 17px; }
+      .caption small { display: none; }
+      h1 { margin-top: 22px; font-size: 42px; }
+      .intro { margin-bottom: 22px; }
+      .mood-label { margin-top: 19px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="content" aria-labelledby="title">
+      <div class="brand"><span class="brand-mark">☀</span> Un rayito de hola</div>
+      <h1 id="title">Un saludo<br /><span>hecho para ti.</span></h1>
+      <p class="intro">A veces, un pequeño hola puede cambiar el día. Cuéntame cómo te llamas y te preparo uno con mucho cariño.</p>
+      <form id="greeting-form">
+        <label class="label" for="name">¿Cómo te llamas?</label>
+        <div class="name-wrap"><span class="emoji" aria-hidden="true">✍️</span><input id="name" name="name" type="text" maxlength="24" placeholder="Escribe tu nombre" autocomplete="given-name" /></div>
+        <div class="label mood-label">¿Cómo vienes hoy?</div>
+        <div class="moods" role="group" aria-label="Elige cómo te sientes">
+          <button class="mood" type="button" data-mood="feliz" aria-pressed="true">😊 Con alegría</button>
+          <button class="mood" type="button" data-mood="cansado" aria-pressed="false">😴 Un poquito cansado</button>
+          <button class="mood" type="button" data-mood="curioso" aria-pressed="false">🌱 Con curiosidad</button>
+        </div>
+        <button class="submit" type="submit">Regálame un saludo <span aria-hidden="true">↗</span></button>
+        <p class="privacy">Sin prisa. Sin cuentas. Solo un poquito de cariño.</p>
+      </form>
+      <div class="result" id="result" aria-live="polite" aria-atomic="true">
+        <p id="message"></p><button class="again" id="again" type="button">Otro saludito, por favor</button>
+      </div>
+    </section>
+    <section class="visual" aria-label="Un solito sonriente te saluda">
+      <span class="spark one" aria-hidden="true">✦</span><span class="spark two" aria-hidden="true">✧</span>
+      <span class="spark three" aria-hidden="true">✧</span><span class="spark four" aria-hidden="true">✦</span>
+      <div class="sun-card">
+        <svg class="sun" id="sun" viewBox="0 0 240 240" role="img" aria-label="Sol sonriente">
+          <g fill="#f2bd6d">
+            <path d="M120 7c7 0 11 22 17 24s23-13 29-9-3 25 1 30 26 3 29 10-17 19-17 26 18 18 16 26-25 8-29 14 7 24 1 30-25-3-31 1-7 27-16 29-17-20-24-21-22 14-29 10 2-26-2-31-26-4-29-12 18-17 18-24-18-19-15-27 25-6 30-12-7-25 0-30 24 5 31 1 10-26 20-25z"/>
+          </g>
+          <circle cx="120" cy="120" r="68" fill="#ffd887" />
+          <ellipse cx="97" cy="116" rx="4.5" ry="6.5" fill="#684b58"/><ellipse cx="143" cy="116" rx="4.5" ry="6.5" fill="#684b58"/>
+          <path d="M105 137q15 16 30 0" fill="none" stroke="#9b5c5b" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="82" cy="132" rx="9" ry="5" fill="#f49a91" opacity=".55"/><ellipse cx="158" cy="132" rx="9" ry="5" fill="#f49a91" opacity=".55"/>
+          <path d="M76 89q7-7 14 0m60 0q7-7 14 0" fill="none" stroke="#e9a958" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="caption"><p id="caption-text">¡Hola! Qué bueno que llegaste.</p><small>Este rinconcito es solo para ti</small></div>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#greeting-form');
+    const nameInput = document.querySelector('#name');
+    const message = document.querySelector('#message');
+    const result = document.querySelector('#result');
+    const caption = document.querySelector('#caption-text');
+    const moods = [...document.querySelectorAll('.mood')];
+    let mood = 'feliz';
+    let lastIndex = -1;
+    const greetings = {
+      feliz: [
+        '¡Qué lindo tenerte aquí, {name}! Que esa alegría te acompañe todo el día. ☀️',
+        '¡Hola, {name}! Tu buena energía ya hizo más bonito este lugar. ✨',
+        '¡{name}, qué gusto verte! Hoy tienes permiso de disfrutar cada cosa buena. 🌼'
+      ],
+      cansado: [
+        'Hola, {name}. No tienes que poder con todo hoy. Me alegra que estés aquí. 💛',
+        'Un abrazo suave para ti, {name}. Ve a tu ritmo: incluso despacito cuenta. 🌿',
+        '¡Hola, {name}! Ojalá encuentres un ratito para respirar y cuidarte. ☁️'
+      ],
+      curioso: [
+        '¡Hola, {name}! Hay algo nuevo esperándote; qué bonito descubrirlo a tu manera. 🌱',
+        '¡Qué bueno verte, {name}! Sigue esa curiosidad: puede llevarte a lugares preciosos. ✨',
+        'Hola, {name}. Que hoy te sorprenda algo pequeño y maravilloso. 🔎'
+      ]
+    };
+    moods.forEach(button => button.addEventListener('click', () => {
+      mood = button.dataset.mood;
+      moods.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    }));
+    function makeGreeting() {
+      const name = nameInput.value.trim() || 'persona bonita';
+      const options = greetings[mood];
+      let index = Math.floor(Math.random() * options.length);
+      if (options.length > 1 && index === lastIndex) index = (index + 1) % options.length;
+      lastIndex = index;
+      message.textContent = options[index].replaceAll('{name}', name);
+      result.classList.remove('show');
+      requestAnimationFrame(() => result.classList.add('show'));
+      caption.textContent = `¡Hola, ${name}! Qué bueno que llegaste.`;
+      burst();
+      document.querySelector('#sun').animate([{transform:'scale(1) rotate(0)'},{transform:'scale(1.12) rotate(-5deg)'},{transform:'scale(1) rotate(0)'}], {duration:550, easing:'ease-out'});
+    }
+    form.addEventListener('submit', event => { event.preventDefault(); makeGreeting(); });
+    document.querySelector('#again').addEventListener('click', makeGreeting);
+    function burst() {
+      const symbols = ['✦','✧','♥','✿','•'];
+      const button = document.querySelector('.submit').getBoundingClientRect();
+      for (let i=0; i<12; i++) {
+        const bit = document.createElement('span'); bit.className = 'burst'; bit.textContent = symbols[i % symbols.length];
+        bit.style.left = `${button.left + button.width/2}px`; bit.style.top = `${button.top + button.height/2}px`;
+        bit.style.color = ['#e87968','#d0a354','#a78bb8','#e99a92'][i%4];
+        const angle = (Math.PI*2*i)/12; const distance = 55 + Math.random()*45;
+        bit.style.setProperty('--x', `${Math.cos(angle)*distance}px`); bit.style.setProperty('--y', `${Math.sin(angle)*distance}px`);
+        document.body.append(bit); setTimeout(() => bit.remove(), 1000);
+      }
+    }
+  </script>
+</body>
+</html>
