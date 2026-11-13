@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101c2a">
+<title>RampOps — Ground Crew Tycoon</title><link rel="icon" href="data:,"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="RampOps inicio"><span class="brand-mark">R</span><span><b>RAMP<span>OPS</span></b><small>GROUND SERVICES · MEDITERRÁNEO</small></span></a>
+    <div class="airport-name"><span class="live-dot"></span><div><b>Aeropuerto Costa Brava</b><small>LEBL · PLATAFORMA NORTE</small></div></div>
+    <div class="top-stats"><div><small>CAJA</small><b id="cash">€ 1.250</b></div><div><small>REPUTACIÓN</small><b><span class="star">★</span> <span id="rep">62</span></b></div><div class="clock"><small id="weather">☀ DESPEJADO</small><b id="time">08:42</b></div></div>
+    <button class="icon-btn sound-btn" id="soundBtn" title="Sonido">◖))</button>
+  </header>
+  <main class="main-layout">
+    <section class="game-column">
+      <div class="scene-wrap">
+        <canvas id="scene" aria-label="Vista interactiva del aeropuerto"></canvas>
+        <div class="scene-topline"><div class="scene-label"><span class="live-dot"></span><span id="modeLabel">OPERACIONES EN VIVO</span></div><div class="scene-tools"><button id="zoomOut">−</button><button id="zoomIn">＋</button><button id="fullscreen">⛶</button></div></div>
+        <div class="scene-bottom"><div class="camera-switch"><button class="active" id="managementBtn">◫ &nbsp;GESTIÓN</button><button id="workBtn">▣ &nbsp;TRABAJO</button></div><div class="scene-hint" id="sceneHint">Selecciona un vuelo para coordinar la operación <span>↗</span></div><div class="weather-chip" id="weatherChip">☀ &nbsp;19° &nbsp;Viento 8 km/h</div></div>
+        <div class="work-controls" id="workControls"><button data-key="up">▲</button><div><button data-key="left">◀</button><button data-key="down">▼</button><button data-key="right">▶</button></div><button class="action-touch" id="touchAction">E&nbsp; TRABAJAR</button></div>
+        <div class="toast" id="toast"></div>
+      </div>
+      <div class="bottom-grid">
+        <section class="panel active-flight-panel"><div class="panel-heading"><div><span class="eyebrow">EN TU PLATAFORMA</span><h2 id="flightTitle">Vuelo IB 4821 <span class="status-pill">EN RODAJE</span></h2></div><button class="text-btn" id="detailsBtn">DETALLES ↗</button></div>
+          <div class="flight-main"><div class="airline-badge" id="airlineBadge">IB</div><div class="flight-route"><b id="route">MADRID <span>→</span> BARCELONA</b><small id="aircraft">Airbus A320 · EC-MXY · 174 pax</small></div><div class="turnaround"><small>TIEMPO DE ESCALA</small><strong id="turnTime">12:40</strong></div></div>
+          <div class="progress-row"><div class="progress-track"><i id="flightProgress" style="width:22%"></i></div><b id="progressText">3 / 10 tareas</b></div>
+          <div class="task-strip" id="taskStrip"></div>
+        </section>
+        <section class="panel objective-panel"><div class="panel-heading"><div><span class="eyebrow">OBJETIVO DEL TURNO</span><h2>Una escala impecable</h2></div><div class="objective-icon">✦</div></div><p id="objectiveText">Completa la escala del vuelo para cobrar el contrato y desbloquear el siguiente nivel.</p><div class="objective-bottom"><div><small>RECOMPENSA</small><b id="reward">€ 420 <span>+ reputación</span></b></div><div class="mini-level"><span id="levelText">NIVEL 1</span><div><i id="xpFill" style="width:35%"></i></div></div></div></section>
+      </div>
+    </section>
+    <aside class="sidebar">
+      <section class="panel flights-panel"><div class="panel-heading"><div><span class="eyebrow">PLAN DE VUELOS</span><h2>Turno de mañana <span class="flight-count" id="flightCount">03</span></h2></div><button class="add-flight" id="scheduleBtn" title="Programar vuelo">＋</button></div><div class="flight-list" id="flightList"></div><button class="wide-quiet" id="allFlightsBtn">VER PLAN COMPLETO <span>↗</span></button></section>
+      <section class="panel crew-panel"><div class="panel-heading"><div><span class="eyebrow">EQUIPO DE RAMPA</span><h2>Tu cuadrilla</h2></div><button class="hire-btn" id="hireBtn">＋ CONTRATAR</button></div><div class="crew-list" id="crewList"></div><div class="crew-foot"><span class="crew-avatars" id="crewAvatars"></span><small id="crewSummary">1 agente · 1 disponible</small></div></section>
+      <section class="panel fleet-panel"><div class="panel-heading"><div><span class="eyebrow">FLOTA Y EQUIPOS</span><h2>Equipo operativo</h2></div><button class="text-btn" id="shopBtn">TIENDA ↗</button></div><div class="equipment-list" id="equipmentList"></div></section>
+      <div class="sidebar-footer"><span>▧ &nbsp;CONTRATO ACTIVO</span><b>IBERIA REGIONAL · 3 VUELOS</b><small id="contractStatus">2 escalas restantes hoy</small></div>
+    </aside>
+  </main>
+  <div class="modal-backdrop" id="modalBackdrop"><div class="modal" id="modal"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></div></div>
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  <footer class="mobile-nav"><button class="selected">◫<small>OPERACIÓN</small></button><button id="mobileCrew">♙<small>EQUIPO</small></button><button id="mobileShop">▰<small>TIENDA</small></button><button id="mobilePlan">☷<small>VUELOS</small></button></footer>
+</div>
+<script src="game.js"></script>
+</body></html>
